@@ -70,4 +70,38 @@ public class Operation {
         }
         rd.setValue(String.valueOf(arr));
     }
+    static void sll(Register rd, Register rs, String shiftAmount){
+        char arr[] = new char[32];
+        int sa = Integer.parseInt(Tool.twosComplementToDecimal(shiftAmount));
+        for (int i = 0; i < sa; i++) {
+            arr[i] = '0';
+        }
+        String subString = rs.getValue().substring((0+sa));
+        String s = subString.concat(String.valueOf(arr));
+        rd.setValue(s);
+    }
+    static void srl(Register rd, Register rs, String shiftAmount){
+        char arr[] = new char[32];
+        int sa = Integer.parseInt(Tool.twosComplementToDecimal(shiftAmount));
+        for (int i = 0; i < sa; i++) {
+            arr[i] = '0';
+        }
+        String subString = rs.getValue().substring(0,(32 - sa));
+        String s = (String.valueOf(arr)).concat(subString);
+        rd.setValue(s);
+    }
+     static void sra(Register rd, Register rs, String shiftAmount){
+        char arr[] = new char[32];
+        boolean isPositive = (rs.getValue().charAt(0) == '0');
+        int sa = Integer.parseInt(Tool.twosComplementToDecimal(shiftAmount));
+        for (int i = 0; i < sa; i++) {
+            if (isPositive)
+                arr[i] = '0';
+            else
+                arr[i] = '1';
+        }
+        String subString = rs.getValue().substring(0,(32 - sa));
+        String s = (String.valueOf(arr)).concat(subString);
+        rd.setValue(s);
+    }
 }

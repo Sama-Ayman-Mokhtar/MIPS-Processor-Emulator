@@ -68,9 +68,21 @@ public class Main extends Application {
         System.out.println("Or: " + Register.rAT.getValue());
         Operation.nor(Register.rAT,Register.rA1,Register.rA2);
         System.out.println("Nor:" + Register.rAT.getValue()); */
-
-
-
+        /* //SLL Test
+        Register.rA1.setValue(Tool.decimaltoTwosComplement("8"));
+        Operation.sll(Register.rAT,Register.rA1,Tool.decimaltoTwosComplement("4"));
+        System.out.println(Register.rA1.getValue());
+        System.out.println(Register.rAT.getValue()); */
+        /* //SRL Test
+        Register.rA1.setValue(Tool.decimaltoTwosComplement("8"));
+        Operation.srl(Register.rAT,Register.rA1,Tool.decimaltoTwosComplement("1"));
+        System.out.println(Register.rA1.getValue());
+        System.out.println(Register.rAT.getValue()); */
+        /* //SRA Test
+        Register.rA1.setValue(Tool.decimaltoTwosComplement("-8"));
+        Operation.sra(Register.rAT,Register.rA1,Tool.decimaltoTwosComplement("1"));
+        System.out.println(Register.rA1.getValue());
+        System.out.println(Register.rAT.getValue()); */
 
 
     }
