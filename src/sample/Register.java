@@ -13,6 +13,7 @@ public enum Register {
     private Register(String name){
         this.name = name;
         isUsed = false;
+        value = "00000000000000000000000000000000";
     }
     public String getName(){
         return name;
