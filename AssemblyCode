@@ -1,0 +1,5 @@
+bne $s5, $s4, Else
+add $s6, $s5, $zero
+j Exit
+Else: slt $s6, $s1, $s2
+Exit:

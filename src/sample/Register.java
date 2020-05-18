@@ -1,11 +1,11 @@
 package sample;
 
 public enum Register {
-    rZERO("$zero"),rAT("$at"),rV0("$v0"),rV1("$v1"),rA1("$a1"),rA2("$a2"),
-   rA3("$a3"),rT0("$t0"),rT1("$t1"),rT2("$t2"),rT3("$t3"),rT4("$t4"),rT5("$t5"),
-    rT6("$t6"),rT7("$t7"),rS0("$S0"),rS1("$S1"),rS2("$S3"),rS4("$S4"),rS5("$S5"),
-    rS6("$S6"),rS7("$S7"),rT8("$t8"),rT9("$t9"),rK0("$k0"),rK1("$k1"),rGP("$gp"),
-    rSP("$sp"),rFp("$fp"),rRA("$ra");
+    zero("$zero"),at("$at"),v0("$v0"),v1("$v1"),a1("$a1"),a2("$a2"),
+   a3("$a3"),t0("$t0"),t1("$t1"),t2("$t2"),t3("$t3"),t4("$t4"),t5("$t5"),
+    t6("$t6"),t7("$t7"),s0("$S0"),s1("$S1"),s2("$S3"),s4("$S4"),s5("$S5"),
+    s6("$S6"),s7("$S7"),t8("$t8"),t9("$t9"),k0("$k0"),k1("$k1"),gp("$gp"),
+    sp("$sp"),fp("$fp"),ra("$ra");
 
     boolean isUsed;
     String value;

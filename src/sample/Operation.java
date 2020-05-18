@@ -104,4 +104,40 @@ public class Operation {
         String s = (String.valueOf(arr)).concat(subString);
         rd.setValue(s);
     }
+    static  void slt(Register rd, Register rs,Register rt){
+        int rsNum = Integer.parseInt(Tool.twosComplementToDecimal(rs.getValue()));
+        int rtNum = Integer.parseInt(Tool.twosComplementToDecimal(rt.getValue()));
+        int rdNum = rsNum - rtNum;
+        if (rdNum < 0)
+            rd.setValue(Tool.decimaltoTwosComplement("1"));
+        else
+           rd.setValue(Tool.decimaltoTwosComplement("0"));
+    }
+    static  void slti(Register rd, Register rs,String immediate){
+        int rsNum = Integer.parseInt(Tool.twosComplementToDecimal(rs.getValue()));
+        int rtNum = Integer.parseInt(immediate);
+        int rdNum = rsNum - rtNum;
+        if (rdNum < 0)
+            rd.setValue(Tool.decimaltoTwosComplement("1"));
+        else
+           rd.setValue(Tool.decimaltoTwosComplement("0"));
+    }
+    static void beq(Register rd, Register rs, String label) {
+        int rdNum = Integer.parseInt(Tool.twosComplementToDecimal(rd.getValue()));
+        int rsNum = Integer.parseInt(Tool.twosComplementToDecimal(rs.getValue()));
+        if (rsNum == rdNum) {
+            Controller.programCounter = Controller.findLabelLine(label) ;
+        }
+        else
+            Controller.programCounter ++;
+    }
+     static void bne(Register rd, Register rs, String label) {
+        int rdNum = Integer.parseInt(Tool.twosComplementToDecimal(rd.getValue()));
+        int rsNum = Integer.parseInt(Tool.twosComplementToDecimal(rs.getValue()));
+        if (!(rsNum == rdNum)) {
+            Controller.programCounter = Controller.findLabelLine(label) ;
+        }
+        else
+            Controller.programCounter ++;
+    }
 }

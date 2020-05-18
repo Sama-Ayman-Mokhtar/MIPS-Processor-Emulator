@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -19,7 +20,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
        // launch(args);
-        /* //AND Test
+        /* //ADD Test
         Register.rA1.setValue(Tool.decimaltoTwosComplement("4"));
         Register.rA2.setValue(Tool.decimaltoTwosComplement("2"));
         Operation.add(Register.rAT,Register.rA1,Register.rA2);
@@ -29,7 +30,7 @@ public class Main extends Application {
         Register.rA2.setValue(Tool.decimaltoTwosComplement("2"));
         Operation.sub(Register.rAT,Register.rA1,Register.rA2);
         System.out.println(Tool.twosComplementToDecimal(Register.rAT.getValue())); */
-        /* //ANDI Test
+        /* //ADDI Test
         Register.rA1.setValue(Tool.decimaltoTwosComplement("4"));
         Operation.addi(Register.rAT,Register.rA1,"2");
         System.out.println(Tool.twosComplementToDecimal(Register.rAT.getValue())); */
@@ -83,7 +84,35 @@ public class Main extends Application {
         Operation.sra(Register.rAT,Register.rA1,Tool.decimaltoTwosComplement("1"));
         System.out.println(Register.rA1.getValue());
         System.out.println(Register.rAT.getValue()); */
+        /* //SLT Test
+        Register.rA1.setValue(Tool.decimaltoTwosComplement("2"));
+        Register.rA2.setValue(Tool.decimaltoTwosComplement("4"));
+        Operation.slt(Register.rAT,Register.rA1,Register.rA2);
+        System.out.println(Tool.twosComplementToDecimal(Register.rAT.getValue())); */
+        /* //SLTI Test
+        Register.rA1.setValue(Tool.decimaltoTwosComplement("2"));
+        Operation.slti(Register.rAT,Register.rA1,"4");
+        System.out.println(Tool.twosComplementToDecimal(Register.rAT.getValue())); */
+        /* //Label Finding Test
+        System.out.println(Controller.findLabelLine("Exit"));
+         */
+        /* //Setting next Instruction
+        while(!Controller.endOfProgram){
+            System.out.println(Controller.programCounter);
+            Controller.setNextInstruction();
+            System.out.println(Controller.instruction);
+            Controller.programCounter++;
+        } */
+        Register.s5.setValue(Tool.decimaltoTwosComplement("6"));
+        Register.s4.setValue(Tool.decimaltoTwosComplement("6"));
+        Controller.executeInstruction();
+        Register.s1.setValue(Tool.decimaltoTwosComplement("1"));
+        Register.s2.setValue(Tool.decimaltoTwosComplement("2"));
+        Controller.executeInstruction();
 
+        System.out.println(Register.s6.getValue());
+        Controller.setlineCount();
+        System.out.println(Controller.lineCount);
 
     }
 }
