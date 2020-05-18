@@ -158,4 +158,14 @@ public class Operation {
         int sum = offfset + memoryAddress;
         r1.setValue( memory.get( String.valueOf(sum) ) );
     }
+    static void lui(Register rd, String immediate){
+        char arr[] = new char[32];
+        String immed =  Tool.decimaltoTwosComplement(immediate);
+        immed = immed.substring(16);
+        for (int i = 0; i < 16; i++) {
+            arr[i] = '0';
+        }
+        String s = String.valueOf(arr);
+        rd.setValue(immed.concat(s));
+    }
 }

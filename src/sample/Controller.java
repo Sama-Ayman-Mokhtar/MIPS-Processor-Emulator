@@ -115,6 +115,10 @@ public class Controller {
                     Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
                     programCounter ++;
             }
+            else if (operation.compareTo("lui") == 0) {
+                    Operation.lui(Register.valueOf(scan.next().substring(1, 3)), scan.next());
+                    programCounter ++;
+            }
 
 
         else

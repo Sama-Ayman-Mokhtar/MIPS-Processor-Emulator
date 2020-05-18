@@ -122,6 +122,10 @@ public class Main extends Application {
         Controller.executeInstruction();
         System.out.println(Operation.memory);
         System.out.println(Register.t5.getValue()); */
+        //LUI TEST
+        Controller.executeInstruction();
+        System.out.println(Register.t0.getValue());
+
 
 
     }

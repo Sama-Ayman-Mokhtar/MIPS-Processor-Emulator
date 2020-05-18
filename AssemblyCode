@@ -1,4 +1,4 @@
-sw $t3, 32($t0)
+lui $t0, 1
 lw $t5, 32($t0)
 bne $s5, $s4, Else
 add $s6, $s5, $zero
