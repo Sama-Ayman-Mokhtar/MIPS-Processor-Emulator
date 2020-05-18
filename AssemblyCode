@@ -1,6 +1,6 @@
-lui $t0, 1
-lw $t5, 32($t0)
-bne $s5, $s4, Else
+slti $at, $s5, 5
 add $s6, $s5, $zero
-Else: add $s6, $s1, $s2
+j Exit
+Else: add $s6, $zero, $zero
+addi $s2, $s1, 5
 Exit:

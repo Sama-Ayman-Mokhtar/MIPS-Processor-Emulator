@@ -2,12 +2,14 @@ package sample;
 
 import java.util.Scanner;
 import java.io.File;
+import java.util.HashMap;
 
 public class Controller {
     static int programCounter = 1;
     static Scanner scan;
     static int lineCount;
     static boolean endOfProgram = false;
+    static HashMap<Integer,String>  InstHashMap = new HashMap<>();
 
     static void executeInstruction() {
 
@@ -15,9 +17,10 @@ public class Controller {
         for (int i = 1; i < programCounter; i++) {
             scan.nextLine();
         }
-        if (lineCount <= programCounter) {
+        if (lineCount >= programCounter) {
             String operation = scan.next();
-            if(!subExcuteOperation(operation)){
+            boolean done = subExcuteOperation(operation);
+            if( !done ){
                 if(scan.hasNext()){
                   String operation2 = scan.next();
                   subExcuteOperation(operation2);
@@ -112,18 +115,17 @@ public class Controller {
                            index = i ;
                         }
                     }
-                    Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    System.out.println(connected.substring(1,index)+ " " + connected.substring(index+2,size -1) );
+                   // Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
                     programCounter ++;
             }
             else if (operation.compareTo("lui") == 0) {
                     Operation.lui(Register.valueOf(scan.next().substring(1, 3)), scan.next());
                     programCounter ++;
             }
-
-
-        else
-            done = false;
-        return done;
+            else
+                done = false;
+            return done;
     }
     static int findLabelLine(String label){
         int lineNum = 1;
@@ -143,12 +145,13 @@ public class Controller {
     static void setlineCount(){
         openFile();
         while(scan.hasNext()){
-                scan.nextLine();
                 lineCount++;
+                InstHashMap.put(lineCount, scan.nextLine());
+
             }
         closeFile();
     }
-    static private void openFile(){
+    static  void openFile(){
             try{
                 File file = new File("AssemblyCode");
                 scan = new Scanner(file);

@@ -1,25 +1,168 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Text;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
+    Boolean binary = false;
+     Button doctor;
+     BorderPane bp;
+     GridPane middleGP = new GridPane();
+     ScrollPane sp = getSp();
+     HBox topHBox;
+     VBox bottomVBox;
+     int dynamic;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+         bp = new BorderPane();
+
+         addRowMiddleGP(0,0);
+         middleGP.setVgap(10);
+         middleGP.setHgap(20);
+         middleGP.setPadding(new Insets(20,20,20,20));
+         //middleGP.setGridLinesVisible(true);
+        bp.setCenter(sp);
+        bp.setBottom(getBottomVBox());
+        bp.setTop(getTopHBox("Click 'Next Instruction' to Start"));
+        Scene scene = new Scene(bp, 900, 600);
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
+    VBox getBottomVBox(){
+        bottomVBox = new VBox();
+        Button nextInstruction = new Button("Next Instruction");
+        nextInstruction.setStyle("-fx-font-size: 16pt");
+        bottomVBox.getChildren().add(nextInstruction);
+        bottomVBox.setAlignment(Pos.CENTER);
+        bottomVBox.setPadding(new Insets(20,20,20,20));
+        nextInstruction.setOnAction(e -> nextAction());
+        return bottomVBox;
+    }
 
+    void nextAction(){
+        if(Controller.programCounter <= Controller.lineCount){
+            bp.setTop(getTopHBox(Controller.programCounter , Controller.InstHashMap.get(Controller.programCounter)));
+            int pc = Controller.programCounter;
+            Controller.executeInstruction();
+            dynamic ++;
+            addRowMiddleGP(pc,dynamic);
+            System.out.println(Controller.programCounter);
+            System.out.println(Register.t0.getValue());
+        }
+        else{
+            bp.setTop(getTopHBox( "End Of Program"));
+
+        }
+
+
+    }
+    HBox getTopHBox(int num, String instruction){
+        topHBox = new HBox();
+        Label instCount = new Label("Line Number " + num + " ");
+        instCount.setStyle("-fx-font-size: 16pt");
+        Label inst = new Label(instruction);
+        inst.setStyle("-fx-font-size: 16pt;");
+        topHBox.getChildren().addAll(instCount,inst);
+        topHBox.setSpacing(20);
+        topHBox.setAlignment(Pos.CENTER);
+        topHBox.setPadding(new Insets(20,20,20,20));
+        return topHBox;
+    }
+    HBox getTopHBox( String instruction){
+        topHBox = new HBox();
+
+        Label inst = new Label(instruction);
+        inst.setStyle("-fx-font-size: 16pt;");
+        topHBox.getChildren().addAll(inst);
+        topHBox.setSpacing(20);
+        topHBox.setAlignment(Pos.CENTER);
+        topHBox.setPadding(new Insets(20,20,20,20));
+        return topHBox;
+    }
+    ScrollPane getSp(){
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(middleGP);
+        sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        sp.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        //sp.setFitToWidth(true);
+        sp.setPannable(true);
+        return  sp;
+    }
+    void addRowMiddleGP(int pc,int dynamic){
+
+        if(pc == 0){
+            Label f = new Label("Line #");
+             f.setStyle("-fx-font-weight: bold;");
+             middleGP.add(f,pc,0);
+
+            for (Register r: Register.values()) {
+                Label l = new Label(r.getName());
+                l.setStyle("-fx-font-weight: bold;");
+                middleGP.add(l,r.ordinal()+1,0);
+            }
+            middleGP.add(new Label("initially"),0,dynamic + 1);
+            for (Register r: Register.values()) {
+                Label l;
+                if(!binary){
+                   l = new Label(Tool.twosComplementToDecimal(r.getValue()));
+                }
+                else{
+                   l = new Label(r.getValue());
+                }
+                middleGP.add(l,r.ordinal()+1,dynamic + 1);
+
+            }
+
+        }
+        else{
+            middleGP.add(new Label(String.valueOf(pc )),0,dynamic + 1);
+           // middleGP.add(new Label(String.valueOf(pc)),0,pc-1);
+            for (Register r: Register.values()) {
+                Label l;
+                if(!binary){
+                   l = new Label(Tool.twosComplementToDecimal(r.getValue()));
+                }
+                else{
+                   l = new Label(r.getValue());
+                }
+
+               // l.setStyle("-fx-font-weight: bold;");
+
+                middleGP.add(l,r.ordinal()+1,dynamic + 1 );
+            }
+
+        }
+    }
 
     public static void main(String[] args) {
-       // launch(args);
+        Controller.setlineCount();
+        System.out.println(Controller.InstHashMap);
+        Register.s5.setValue(Tool.decimaltoTwosComplement("4"));
+        launch(args);
         /* //ADD Test
         Register.rA1.setValue(Tool.decimaltoTwosComplement("4"));
         Register.rA2.setValue(Tool.decimaltoTwosComplement("2"));
@@ -122,11 +265,11 @@ public class Main extends Application {
         Controller.executeInstruction();
         System.out.println(Operation.memory);
         System.out.println(Register.t5.getValue()); */
-        //LUI TEST
-        Controller.executeInstruction();
-        System.out.println(Register.t0.getValue());
-
-
+         /*//LUI TEST
+       Controller.executeInstruction();
+       System.out.println(Register.t1.getValue());
+      System.out.println(Tool.twosComplementToDecimal( (Register.t1.getValue()) ));
+        System.out.println(Tool.twosComplementToDecimal( "00000000000000010000000000000000"));*/
 
     }
 }
