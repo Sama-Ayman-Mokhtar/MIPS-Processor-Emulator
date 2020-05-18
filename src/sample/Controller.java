@@ -85,6 +85,37 @@ public class Controller {
             else if (operation.compareTo("bne") == 0) {
                     Operation.bne(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), scan.next());
             }
+            else if (operation.compareTo("j") == 0) {
+                    Operation.j(scan.next());
+            }
+            else if (operation.compareTo("sw") == 0) {
+                    Register r = Register.valueOf(scan.next().substring(1, 3));
+                    String connected = scan.next();
+                    int size = connected.length();
+                    int index = 0;
+                    for (int i = 0; i < size ; i++) {
+                        if(connected.charAt(i)=='('){
+                           index = i ;
+                        }
+                    }
+
+                    Operation.sw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    programCounter ++ ;
+            }
+            else if (operation.compareTo("lw") == 0) {
+                    Register r = Register.valueOf(scan.next().substring(1, 3));
+                    String connected = scan.next();
+                    int size = connected.length();
+                    int index = 0;
+                    for (int i = 0; i < size ; i++) {
+                        if(connected.charAt(i)=='('){
+                           index = i ;
+                        }
+                    }
+                    Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    programCounter ++;
+            }
+
 
         else
             done = false;

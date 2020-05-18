@@ -103,16 +103,26 @@ public class Main extends Application {
             System.out.println(Controller.instruction);
             Controller.programCounter++;
         } */
+        /* //beq and bne Test
         Register.s5.setValue(Tool.decimaltoTwosComplement("6"));
         Register.s4.setValue(Tool.decimaltoTwosComplement("6"));
         Controller.executeInstruction();
         Register.s1.setValue(Tool.decimaltoTwosComplement("1"));
         Register.s2.setValue(Tool.decimaltoTwosComplement("2"));
         Controller.executeInstruction();
-
         System.out.println(Register.s6.getValue());
         Controller.setlineCount();
-        System.out.println(Controller.lineCount);
+        System.out.println(Controller.lineCount); */
+        /* //LW & SW TEST
+         Register.t0.setValue(Tool.decimaltoTwosComplement("6"));
+         Register.t3.setValue(Tool.decimaltoTwosComplement("5"));
+        Controller.executeInstruction();
+        System.out.println(Operation.memory);
+        System.out.println(Register.t5.getValue());
+        Controller.executeInstruction();
+        System.out.println(Operation.memory);
+        System.out.println(Register.t5.getValue()); */
+
 
     }
 }

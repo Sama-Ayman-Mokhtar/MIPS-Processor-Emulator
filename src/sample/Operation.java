@@ -1,6 +1,9 @@
 package sample;
 
+import java.util.HashMap;
+
 public class Operation {
+    static HashMap<String, String> memory = new HashMap<>();
 
     static  void add(Register rd, Register rs,Register rt){
         int rsNum = Integer.parseInt(Tool.twosComplementToDecimal(rs.getValue()));
@@ -139,5 +142,20 @@ public class Operation {
         }
         else
             Controller.programCounter ++;
+    }
+     static void j(String label) {
+            Controller.programCounter = Controller.findLabelLine(label) ;
+    }
+    static void sw(Register r1, String offset, Register r2){
+        int offfset = Integer.parseInt(offset);
+        int memoryAddress = Integer.parseInt(Tool.twosComplementToDecimal(r2.getValue())) ;
+        int sum = offfset + memoryAddress;
+        memory.put( String.valueOf(sum) , r1.getValue() );
+    }
+    static void lw(Register r1, String offset, Register r2){
+        int offfset = Integer.parseInt(offset);
+        int memoryAddress = Integer.parseInt(Tool.twosComplementToDecimal(r2.getValue())) ;
+        int sum = offfset + memoryAddress;
+        r1.setValue( memory.get( String.valueOf(sum) ) );
     }
 }
