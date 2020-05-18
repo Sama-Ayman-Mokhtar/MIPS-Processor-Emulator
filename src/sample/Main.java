@@ -23,16 +23,17 @@ import javafx.scene.text.Text;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Main extends Application {
     Boolean binary = false;
-     Button doctor;
      BorderPane bp;
      GridPane middleGP = new GridPane();
      ScrollPane sp = getSp();
      HBox topHBox;
      VBox bottomVBox;
      int dynamic;
+     VBox leftVBox;
 
 
     @Override
@@ -41,9 +42,11 @@ public class Main extends Application {
 
          addRowMiddleGP(0,0);
          middleGP.setVgap(10);
-         middleGP.setHgap(20);
+         middleGP.setHgap(10);
          middleGP.setPadding(new Insets(20,20,20,20));
          //middleGP.setGridLinesVisible(true);
+        getLeftVBox();
+        bp.setRight(leftVBox);
         bp.setCenter(sp);
         bp.setBottom(getBottomVBox());
         bp.setTop(getTopHBox("Click 'Next Instruction' to Start"));
@@ -68,6 +71,7 @@ public class Main extends Application {
             bp.setTop(getTopHBox(Controller.programCounter , Controller.InstHashMap.get(Controller.programCounter)));
             int pc = Controller.programCounter;
             Controller.executeInstruction();
+            bp.setRight(getLeftVBox());
             dynamic ++;
             addRowMiddleGP(pc,dynamic);
             System.out.println(Controller.programCounter);
@@ -111,6 +115,28 @@ public class Main extends Application {
         //sp.setFitToWidth(true);
         sp.setPannable(true);
         return  sp;
+    }
+    VBox getLeftVBox(){
+        leftVBox = new VBox();
+        GridPane memGp = new GridPane();
+        memGp.setVgap(10);
+        memGp.setHgap(10);
+        memGp.setPadding(new Insets(10,10,10,10));
+        VBox label = new VBox();
+        Label l = new Label("Memory");
+        l.setStyle("-fx-font-size: 16pt;");
+        label.getChildren().add(l);
+        label.setAlignment(Pos.CENTER);
+        memGp.add(new Label("Address"),0,0);
+        memGp.add(new Label("Value"),1,0);
+        for ( Map.Entry<String, String> entry : Operation.memory.entrySet()) {
+            String key = entry.getKey();
+            String tab = entry.getValue();
+            memGp.add(new Label(key),0,memGp.getRowCount());
+            memGp.add(new Label(tab),1,memGp.getRowCount()-1);
+        }
+        leftVBox.getChildren().addAll(label,memGp);
+        return leftVBox;
     }
     void addRowMiddleGP(int pc,int dynamic){
 

@@ -1,4 +1,4 @@
-slti $at, $s5, 5
+sw $s5, 3(&s5)
 add $s6, $s5, $zero
 j Exit
 Else: add $s6, $zero, $zero
