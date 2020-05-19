@@ -12,6 +12,8 @@ slti $t3, $s0, 5
 There: lw $s4, 3(&s5)
 or $t5, $t2, $s0
 nor $t6, $t2, $s0
-sra $at, $s2, 1
+sll $at, $s2, 2
+srl $at, $s2, 1
+sra $at, $s2, 2
 lui &s7, 1
 Exit:
