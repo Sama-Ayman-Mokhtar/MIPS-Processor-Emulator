@@ -187,7 +187,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         Controller.setlineCount();
         System.out.println(Controller.InstHashMap);
-        Register.s5.setValue(Tool.decimaltoTwosComplement("4"));
+        Register.s0.setValue(Tool.decimaltoTwosComplement("10"));
+        Register.s1.setValue(Tool.decimaltoTwosComplement("12"));
+        Register.s2.setValue(Tool.decimaltoTwosComplement("32"));
+        Register.s5.setValue(Tool.decimaltoTwosComplement("500"));
         launch(args);
         /* //ADD Test
         Register.rA1.setValue(Tool.decimaltoTwosComplement("4"));

@@ -115,8 +115,8 @@ public class Controller {
                            index = i ;
                         }
                     }
-                    System.out.println(connected.substring(1,index)+ " " + connected.substring(index+2,size -1) );
-                   // Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                   // System.out.println(connected.substring(1,index)+ " " + connected.substring(index+2,size -1) );
+                    Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
                     programCounter ++;
             }
             else if (operation.compareTo("lui") == 0) {
