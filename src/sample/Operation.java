@@ -81,7 +81,7 @@ public class Operation {
         }
         String subString = rs.getValue().substring((0+sa));
         String s = subString.concat(extension);
-        System.out.println(s);
+       // System.out.println(s);
         rd.setValue(s);
     }
     static void srl(Register rd, Register rs, String shiftAmount){
@@ -147,12 +147,14 @@ public class Operation {
      static void j(String label) {
             Controller.programCounter = Controller.findLabelLine(label) ;
     }
+
     static void sw(Register r1, String offset, Register r2){
         int offfset = Integer.parseInt(offset);
         int memoryAddress = Integer.parseInt(Tool.twosComplementToDecimal(r2.getValue())) ;
         int sum = offfset + memoryAddress;
         memory.put( String.valueOf(sum) , r1.getValue() );
     }
+
     static void lw(Register r1, String offset, Register r2){
         int offfset = Integer.parseInt(offset);
         int memoryAddress = Integer.parseInt(Tool.twosComplementToDecimal(r2.getValue())) ;

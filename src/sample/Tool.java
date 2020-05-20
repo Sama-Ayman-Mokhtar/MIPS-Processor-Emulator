@@ -9,7 +9,6 @@ public class Tool {
         if(b32.charAt(0) == '0'){
             int b = Integer.parseInt(b32,2);
             sfinal  = String.valueOf(b);
-
          }
          else {
              String b =getTwosComplement(b32);
@@ -18,7 +17,6 @@ public class Tool {
               sfinal = String.valueOf(Integer.valueOf(last)*-1);
          }
         return sfinal;
-
     }
      static String decimaltoTwosComplement(String b32){
          String sfinal ;
@@ -33,9 +31,6 @@ public class Tool {
              b =getTwosComplement(b);
               sfinal = b;
          }
-
-
-
         return sfinal;
      }
      static private String getTwosComplement (String b32){
@@ -56,8 +51,6 @@ public class Tool {
                   else
                       arr[i] = '1';
              }
-
-
          }
          return String.valueOf(arr);
      }
@@ -71,9 +64,6 @@ public class Tool {
          for (int i = 0; i < length ; i++) {
              arr[left + i] = b.charAt(i);
          }
-
          return String.valueOf(arr);
      }
-
-
 }

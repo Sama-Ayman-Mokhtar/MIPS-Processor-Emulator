@@ -8,7 +8,6 @@ public class Controller {
     static int programCounter = 1;
     static Scanner scan;
     static int lineCount;
-    static boolean endOfProgram = false;
     static HashMap<Integer,String>  InstHashMap = new HashMap<>();
 
     static void executeInstruction() {
@@ -41,19 +40,19 @@ public class Controller {
     static private boolean subExcuteOperation(String operation){
         boolean done = true;
         if (operation.compareTo("add") == 0) {
-                Operation.add(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.add(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
             } else if (operation.compareTo("sub") == 0) {
-                Operation.sub(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.sub(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
             } else if (operation.compareTo("addi") == 0) {
                 Operation.addi(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), scan.next());
                 programCounter++;
             } else if (operation.compareTo("and") == 0) {
-                Operation.and(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.and(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
             } else if (operation.compareTo("or") == 0) {
-                Operation.or(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.or(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
             } else if (operation.compareTo("andi") == 0) {
                 Operation.andi(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Tool.decimaltoTwosComplement(scan.next()));
@@ -63,7 +62,7 @@ public class Controller {
                 Operation.ori(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Tool.decimaltoTwosComplement(scan.next()));
                 programCounter++;
             } else if (operation.compareTo("nor") == 0) {
-                Operation.nor(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.nor(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
 
             } else if (operation.compareTo("sll") == 0) {
@@ -77,7 +76,7 @@ public class Controller {
                 Operation.sra(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Tool.decimaltoTwosComplement(scan.next()));
                 programCounter++;
             } else if (operation.compareTo("slt") == 0) {
-                Operation.slt(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1)));
+                Operation.slt(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1,3)));
                 programCounter++;
             } else if (operation.compareTo("slti") == 0) {
                 Operation.slti(Register.valueOf(scan.next().substring(1, 3)), Register.valueOf(scan.next().substring(1, 3)), scan.next());
@@ -101,8 +100,12 @@ public class Controller {
                            index = i ;
                         }
                     }
-
-                    Operation.sw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    if(connected.charAt(index+2)== 'z'){
+                        Operation.sw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -3)) );
+                    }
+                    else{
+                        Operation.sw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    }
                     programCounter ++ ;
             }
             else if (operation.compareTo("lw") == 0) {
@@ -116,7 +119,12 @@ public class Controller {
                         }
                     }
                    // System.out.println(connected.substring(1,index)+ " " + connected.substring(index+2,size -1) );
-                    Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    if(connected.charAt(index+2)== 'z'){
+                        Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -3)) );
+                    }
+                    else{
+                        Operation.lw(r, connected.substring(0,index) , Register.valueOf(connected.substring(index+2 ,size -1)) );
+                    }
                     programCounter ++;
             }
             else if (operation.compareTo("lui") == 0) {
