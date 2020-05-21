@@ -1,8 +1,10 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -23,6 +25,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+                Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
          bp = new BorderPane();
 
          HBox topi = new HBox();
@@ -44,7 +48,7 @@ public class Main extends Application {
         bp.setBottom(bv);
 
          TextArea ta = new TextArea();
-         ta.setText("slti $at, $s5, 5 \nbeq $at, $zero, Else \nadd $s6, $s5, $zero \nj Exit \nElse: add $s6, $zero, $zero \nExit:");
+         ta.setText("addi $s0, $zero, 10 \naddi $s1, $zero, 12 \naddi $s2, $zero, 32\naddi $s5, $zero, 500 \nadd $t0, $s0, $s1\nbeq $s0, $s1, Label\nsub $t1, $s0, $s1 \nLabel: addi $t2, $s0, 5 \nbne $s0, $s1, Go \nadd $t7, $t2, $t1 \nsra &s2, 3 \nGo: add $s6, $s5, $zero \nsw $s5, 3($s5) \nj There \nslti $t3, $s0, 5 \nThere: lw $s4, 3($s5) \nor $t5, $t2, $s0 \nnor $t6, $t2, $s0 \nsll $at, $s2, 2 \nsrl $at, $s2, 1 \nsra $at, $s2, 2 \nlui &s7, 1 \nExit:");
          bp.setCenter(ta);
          cont.setOnAction(e-> {
              FileWriter.writeFile(ta.getText());
@@ -60,14 +64,14 @@ public class Main extends Application {
             bp.setTop(getTopHBox("Click 'Next Instruction' to Start"));
             Controller.setlineCount();
         //System.out.println(Controller.InstHashMap);
-        Register.s0.setValue(Tool.decimaltoTwosComplement("10"));
-        Register.s1.setValue(Tool.decimaltoTwosComplement("12"));
-        Register.s2.setValue(Tool.decimaltoTwosComplement("32"));
-        Register.s5.setValue(Tool.decimaltoTwosComplement("500"));
+       // Register.s0.setValue(Tool.decimaltoTwosComplement("10"));
+        //Register.s1.setValue(Tool.decimaltoTwosComplement("12"));
+       // Register.s2.setValue(Tool.decimaltoTwosComplement("32"));
+        //Register.s5.setValue(Tool.decimaltoTwosComplement("500"));
 
          });
         Scene scene = new Scene(bp, 900, 600);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Emulator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -95,10 +99,7 @@ public class Main extends Application {
         }
         else{
             bp.setTop(getTopHBox( "End Of Program"));
-
         }
-
-
     }
     HBox getTopHBox(int num, String instruction){
         topHBox = new HBox();
@@ -176,9 +177,7 @@ public class Main extends Application {
                    l = new Label(r.getValue());
                 }
                 middleGP.add(l,r.ordinal()+1,dynamic + 1);
-
             }
-
         }
         else{
             middleGP.add(new Label(String.valueOf(pc )),0,dynamic + 1);
@@ -191,9 +190,7 @@ public class Main extends Application {
                 else{
                    l = new Label(r.getValue());
                 }
-
                // l.setStyle("-fx-font-weight: bold;");
-
                 middleGP.add(l,r.ordinal()+1,dynamic + 1 );
             }
 
@@ -202,10 +199,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
                 launch(args);
-
-
-
-
-
     }
 }

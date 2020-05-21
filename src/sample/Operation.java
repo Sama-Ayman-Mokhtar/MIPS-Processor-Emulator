@@ -1,7 +1,5 @@
 package sample;
-
 import java.util.HashMap;
-
 public class Operation {
     static HashMap<String, String> memory = new HashMap<>();
 
