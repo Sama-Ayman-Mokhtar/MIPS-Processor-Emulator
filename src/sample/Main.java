@@ -13,14 +13,14 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import java.util.Map;
 
 public class Main extends Application {
-    Boolean binary = false;
-     BorderPane bp;
-     GridPane middleGP = new GridPane();
-     ScrollPane sp = getSp();
-     HBox topHBox;
-     VBox bottomVBox;
-     int dynamic;
-     VBox leftVBox;
+    private Boolean binary = false;
+     private BorderPane bp;
+     private GridPane middleGP = new GridPane();
+     private ScrollPane sp = getSp();
+     private HBox topHBox;
+     private VBox bottomVBox;
+     private int dynamic;
+     private VBox leftVBox;
      static Boolean start = false;
 
     @Override
@@ -48,7 +48,7 @@ public class Main extends Application {
         bp.setBottom(bv);
 
          TextArea ta = new TextArea();
-         ta.setText("addi $s0, $zero, 10 \naddi $s1, $zero, 12 \naddi $s2, $zero, 32\naddi $s5, $zero, 500 \nadd $t0, $s0, $s1\nbeq $s0, $s1, Label\nsub $t1, $s0, $s1 \nLabel: addi $t2, $s0, 5 \nbne $s0, $s1, Go \nadd $t7, $t2, $t1 \nsra &s2, 3 \nGo: add $s6, $s5, $zero \nsw $s5, 3($s5) \nj There \nslti $t3, $s0, 5 \nThere: lw $s4, 3($s5) \nor $t5, $t2, $s0 \nnor $t6, $t2, $s0 \nsll $at, $s2, 2 \nsrl $at, $s2, 1 \nsra $at, $s2, 2 \nlui &s7, 1 \nExit:");
+         ta.setText("addi $s0, $zero, 10 \naddi $s1, $zero, 12 \naddi $s2, $zero, 32\naddi $s5, $zero, 500 \nadd $t0, $s0, $s1\nbeq $s0, $s1, Label\nsub $t1, $s0, $s1 \nLabel: addi $t2, $s0, 5 \nbne $s0, $s1, Go \nadd $t7, $t2, $t1 \nsra $s2, 3 \nGo: add $s6, $s5, $zero \nsw $s5, 3($s5) \nj There \nslti $t3, $s0, 5 \nThere: lw $s4, 3($s5) \nor $t5, $t2, $s0 \nnor $t6, $t2, $s0 \nsll $at, $s2, 2 \nsrl $at, $s2, 1 \nsra $at, $s2, 2 \nlui $s7, 1 \nExit:");
          bp.setCenter(ta);
          cont.setOnAction(e-> {
              FileWriter.writeFile(ta.getText());
@@ -75,7 +75,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    VBox getBottomVBox(String s){
+    private VBox getBottomVBox(String s){
         bottomVBox = new VBox();
         Button nextInstruction = new Button(s);
         nextInstruction.setStyle("-fx-font-size: 16pt");
@@ -86,7 +86,7 @@ public class Main extends Application {
         return bottomVBox;
     }
 
-    void nextAction(){
+    private void nextAction(){
         if(Controller.programCounter <= Controller.lineCount){
             bp.setTop(getTopHBox(Controller.programCounter , Controller.InstHashMap.get(Controller.programCounter)));
             int pc = Controller.programCounter;
@@ -101,7 +101,7 @@ public class Main extends Application {
             bp.setTop(getTopHBox( "End Of Program"));
         }
     }
-    HBox getTopHBox(int num, String instruction){
+    private HBox getTopHBox(int num, String instruction){
         topHBox = new HBox();
         Label instCount = new Label("Line Number " + num + " ");
         instCount.setStyle("-fx-font-size: 16pt");
@@ -113,7 +113,7 @@ public class Main extends Application {
         topHBox.setPadding(new Insets(20,20,20,20));
         return topHBox;
     }
-    HBox getTopHBox( String instruction){
+    private HBox getTopHBox( String instruction){
         topHBox = new HBox();
 
         Label inst = new Label(instruction);
@@ -124,7 +124,7 @@ public class Main extends Application {
         topHBox.setPadding(new Insets(20,20,20,20));
         return topHBox;
     }
-    ScrollPane getSp(){
+    private ScrollPane getSp(){
         ScrollPane sp = new ScrollPane();
         sp.setContent(middleGP);
         sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -133,7 +133,7 @@ public class Main extends Application {
         sp.setPannable(true);
         return  sp;
     }
-    VBox getLeftVBox(){
+    private VBox getLeftVBox(){
         leftVBox = new VBox();
         GridPane memGp = new GridPane();
         memGp.setVgap(10);
@@ -149,13 +149,14 @@ public class Main extends Application {
         for ( Map.Entry<String, String> entry : Operation.memory.entrySet()) {
             String key = entry.getKey();
             String tab = entry.getValue();
-            memGp.add(new Label(key),0,memGp.getRowCount());
-            memGp.add(new Label(tab),1,memGp.getRowCount()-1);
+
+            memGp.add(new Label(key),0,Operation.memory.size());
+            memGp.add(new Label(tab),1,Operation.memory.size()) ;
         }
         leftVBox.getChildren().addAll(label,memGp);
         return leftVBox;
     }
-    void addRowMiddleGP(int pc,int dynamic){
+    private void addRowMiddleGP(int pc,int dynamic){
 
         if(pc == 0){
             Label f = new Label("Line #");
@@ -193,10 +194,8 @@ public class Main extends Application {
                // l.setStyle("-fx-font-weight: bold;");
                 middleGP.add(l,r.ordinal()+1,dynamic + 1 );
             }
-
         }
     }
-
     public static void main(String[] args) {
                 launch(args);
     }

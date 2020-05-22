@@ -8,7 +8,7 @@ sub $t1, $s0, $s1
 Label: addi $t2, $s0, 5 
 bne $s0, $s1, Go 
 add $t7, $t2, $t1 
-sra &s2, 3 
+sra $s2, 3 
 Go: add $s6, $s5, $zero 
 sw $s5, 3($s5) 
 j There 
@@ -19,5 +19,5 @@ nor $t6, $t2, $s0
 sll $at, $s2, 2 
 srl $at, $s2, 1 
 sra $at, $s2, 2 
-lui &s7, 1 
+lui $s7, 1 
 Exit:
