@@ -135,6 +135,7 @@ public class Main extends Application {
     }
     private VBox getLeftVBox(){
         leftVBox = new VBox();
+        int i = 0;
         GridPane memGp = new GridPane();
         memGp.setVgap(10);
         memGp.setHgap(10);
@@ -149,9 +150,10 @@ public class Main extends Application {
         for ( Map.Entry<String, String> entry : Operation.memory.entrySet()) {
             String key = entry.getKey();
             String tab = entry.getValue();
-
-            memGp.add(new Label(key),0,Operation.memory.size());
-            memGp.add(new Label(tab),1,Operation.memory.size()) ;
+            memGp.add(new Label(key),0,Operation.memory.size()+i);
+            System.out.println(Operation.memory.size());
+            memGp.add(new Label(tab),1,Operation.memory.size()+i) ;
+            i--;
         }
         leftVBox.getChildren().addAll(label,memGp);
         return leftVBox;

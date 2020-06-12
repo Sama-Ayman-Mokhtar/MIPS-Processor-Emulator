@@ -1,23 +1,11 @@
-addi $s0, $zero, 10 
-addi $s1, $zero, 12 
-addi $s2, $zero, 32
-addi $s5, $zero, 500 
-add $t0, $s0, $s1
-beq $s0, $s1, Label
-sub $t1, $s0, $s1 
-Label: addi $t2, $s0, 5 
-bne $s0, $s1, Go 
-add $t7, $t2, $t1 
-sra $s2, 3 
-Go: add $s6, $s5, $zero 
-sw $s5, 3($s5) 
-j There 
-slti $t3, $s0, 5 
-There: lw $s4, 3($s5) 
-or $t5, $t2, $s0 
-nor $t6, $t2, $s0 
-sll $at, $s2, 2 
-srl $at, $s2, 1 
-sra $at, $s2, 2 
-lui $s7, 1 
-Exit:
+addi $s1, $zero, 2
+addi $t8, $zero, 9
+addi $t9, $zero, 10
+sw $t8, 8($s2) 
+sw $t9 12($s2) 
+sll $s1, $s1, 2 
+add $t0, $s1, $s2
+lw $t1, 0($t0) 
+lw $t2, 4($t0) 
+sw $t2, 0($t0) 
+sw $t1, 4($t0) 
